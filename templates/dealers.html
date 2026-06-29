@@ -1,0 +1,779 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Used Car Dealers in India & Price Compare - AutoValue 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #efe5d8;
+      --surface: #fffaf4;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #0f766e;
+      --primary-dark: #134e4a;
+      --accent: #f59e0b;
+      --card: rgba(255, 250, 244, 0.92);
+      --border: rgba(226,232,240,0.85);
+      --shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+      --radius: 18px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 30%),
+        linear-gradient(180deg, #faf4eb 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e40af, #065f46);
+      color: white;
+      padding: 4.5rem 1.25rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25) 0%, transparent 62%);
+    }
+
+    h1 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-weight: 800;
+    }
+
+    header p {
+      position: relative;
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
+      max-width: 860px;
+      margin: 0.9rem auto 0;
+      opacity: 0.94;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 2.25rem auto;
+      padding: 0 1rem;
+    }
+
+    .toolbar {
+      max-width: 1180px;
+      margin: 1.2rem auto 0;
+      padding: 0 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle {
+      width: 2.9rem;
+      height: 2.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 118, 110, 0.14);
+      background: rgba(255, 251, 246, 0.92);
+      color: var(--primary-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+    }
+
+    .compare-panel {
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.98), rgba(15, 23, 42, 0.96)),
+        var(--surface);
+      color: #f8fafc;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 28px;
+      box-shadow: 0 28px 60px rgba(15, 23, 42, 0.22);
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .compare-panel::before {
+      content: '';
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -110px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(245,158,11,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .compare-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+      gap: 1.3rem;
+      align-items: stretch;
+      z-index: 1;
+    }
+
+    .compare-copy {
+      padding: 0.25rem 0.2rem;
+    }
+
+    .compare-panel h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      line-height: 1.04;
+      margin-bottom: 0.85rem;
+      max-width: 12ch;
+    }
+
+    .compare-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.12);
+      color: #fef3c7;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .compare-lead {
+      max-width: 58ch;
+      color: rgba(241,245,249,0.86);
+      line-height: 1.6;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .compare-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .compare-point {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .compare-form-card {
+      background: rgba(255, 251, 246, 0.98);
+      color: var(--text);
+      border-radius: 22px;
+      padding: 1.1rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 18px 34px rgba(2, 8, 23, 0.22);
+    }
+
+    .compare-form-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .compare-form-title strong {
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .compare-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.38rem 0.65rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: rgba(15, 118, 110, 0.12);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .field-group label {
+      display: block;
+      margin-bottom: 0.38rem;
+      color: #475569;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .form-grid input {
+      width: 100%;
+      padding: 0.84rem 0.95rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      background: #fffaf4;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .form-grid input:focus {
+      outline: none;
+      border-color: rgba(15, 118, 110, 0.7);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #f97316);
+      color: #fff;
+      box-shadow: 0 14px 26px rgba(249, 115, 22, 0.28);
+      flex: 1 1 220px;
+      justify-content: center;
+    }
+
+    .btn-secondary {
+      background: #efe3d4;
+      color: #0f172a;
+      flex: 1 1 160px;
+      justify-content: center;
+    }
+
+    .compare-summary {
+      margin-top: 0.9rem;
+      color: #cbd5e1;
+      font-size: 0.94rem;
+      line-height: 1.5;
+      word-break: break-word;
+      max-width: 60ch;
+    }
+
+    .dealer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1rem;
+    }
+
+    .dealer-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      min-width: 0;
+    }
+
+    .dealer-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .dealer-rating {
+      color: #ca8a04;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .dealer-info {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.94rem;
+    }
+
+    .dealer-info strong { color: var(--text); }
+
+    .dealer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.2rem;
+    }
+
+    .muted-note {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    body.theme-dark {
+      --bg: #11181d;
+      --surface: #1a242a;
+      --text: #e6efec;
+      --muted: #a5b7b2;
+      --primary: #83b8aa;
+      --primary-dark: #bfe1d9;
+      --accent: #d7a57d;
+      --card: rgba(24, 34, 40, 0.9);
+      --border: rgba(191, 225, 217, 0.12);
+      --shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+    }
+
+    body.theme-dark {
+      background:
+        radial-gradient(circle at top left, rgba(131, 184, 170, 0.12), transparent 30%),
+        linear-gradient(180deg, #12191e 0%, var(--bg) 100%);
+    }
+
+    body.theme-dark .theme-toggle {
+      background: rgba(25, 36, 42, 0.92);
+      color: #f0d7c3;
+      border-color: rgba(191, 225, 217, 0.14);
+    }
+
+    body.theme-dark .compare-form-card,
+    body.theme-dark .dealer-card {
+      border-color: var(--border);
+    }
+
+    body.theme-dark .compare-form-card {
+      background: rgba(26, 36, 42, 0.98);
+      color: var(--text);
+    }
+
+    body.theme-dark .field-group label,
+    body.theme-dark .dealer-info,
+    body.theme-dark .muted-note,
+    body.theme-dark footer {
+      color: var(--muted);
+    }
+
+    body.theme-dark .dealer-info strong,
+    body.theme-dark .dealer-name {
+      color: var(--text);
+    }
+
+    body.theme-dark .form-grid input {
+      background: #11191e;
+      color: var(--text);
+      border-color: rgba(191, 225, 217, 0.14);
+    }
+
+    body.theme-dark .btn-secondary {
+      background: #26343b;
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) {
+      .compare-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 3.4rem 0.9rem 2.4rem;
+      }
+
+      .container {
+        padding: 0 0.75rem;
+      }
+
+      .compare-panel {
+        padding: 1rem;
+        border-radius: 22px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dealer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .compare-form-title {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .dealer-actions .btn {
+        width: auto;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme" title="Night mode">
+    <i class="fa-solid fa-moon"></i>
+  </button>
+</div>
+
+<header>
+  <h1>Used Car Dealers Price Compare (India)</h1>
+  <p>Enter a car once, then open direct search links across all listed dealers to compare prices quickly.</p>
+</header>
+
+<div class="container">
+  <section class="compare-panel">
+    <div class="compare-shell">
+      <div class="compare-copy">
+        <div class="compare-kicker">
+          <i class="fa-solid fa-wave-square"></i> Market Scan
+        </div>
+        <h2>Enter one car. Launch your dealer comparison in seconds.</h2>
+        <p class="compare-lead">
+          Build a clean search once, then open matching dealer sites without bouncing between tabs and retyping the same details.
+        </p>
+        <div class="compare-points">
+          <span class="compare-point"><i class="fa-solid fa-check"></i> Faster shortlist</span>
+          <span class="compare-point"><i class="fa-solid fa-location-dot"></i> City-aware lookup</span>
+          <span class="compare-point"><i class="fa-solid fa-arrow-up-right-from-square"></i> Multi-site opening</span>
+        </div>
+        <p id="compareSummary" class="compare-summary">Tip: Add at least Make + Model for better results.</p>
+      </div>
+
+      <div class="compare-form-card">
+        <div class="compare-form-title">
+          <strong>Comparison Builder</strong>
+          <span class="compare-badge"><i class="fa-solid fa-bolt"></i> Ready in one click</span>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="makeInput">Make</label>
+            <input id="makeInput" type="text" placeholder="Toyota" />
+          </div>
+          <div class="field-group">
+            <label for="modelInput">Model</label>
+            <input id="modelInput" type="text" placeholder="Corolla" />
+          </div>
+          <div class="field-group">
+            <label for="yearInput">Year</label>
+            <input id="yearInput" type="text" placeholder="2021" />
+          </div>
+          <div class="field-group">
+            <label for="cityInput">City</label>
+            <input id="cityInput" type="text" placeholder="Bangalore" />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button id="compareAllBtn" class="btn btn-primary" type="button">
+            <i class="fa-solid fa-scale-balanced"></i> Compare On All Dealers
+          </button>
+          <button id="fillDemoBtn" class="btn btn-secondary" type="button">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Fill Example
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="dealer-grid" id="dealerGrid">
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:cars24.com+{query}" data-name="CARS24">
+      <div class="dealer-name">CARS24</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.6</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> 300-point inspection, buy/sell, financing
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.cars24.com">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:spinny.com+{query}" data-name="Spinny">
+      <div class="dealer-name">Spinny</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.5</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Assured cars, warranty, doorstep options
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.spinny.com">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:cardekho.com+{query}" data-name="CarDekho">
+      <div class="dealer-name">CarDekho / Gaadi</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.4</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Large dealer network, comparison tools
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.cardekho.com/used-cars">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:carwale.com+{query}" data-name="CarWale">
+      <div class="dealer-name">CarWale</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.4</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Valuation, dealer ratings, reviews
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.carwale.com/used">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:mahindrafirstchoice.com+{query}" data-name="Mahindra First Choice">
+      <div class="dealer-name">Mahindra First Choice</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.5</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Certified multi-brand used cars
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.mahindrafirstchoice.com">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:marutisuzukitruevalue.com+{query}" data-name="Maruti True Value">
+      <div class="dealer-name">Maruti True Value</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 4.7</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Maruti-certified inventory and warranty
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.marutisuzukitruevalue.com">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:olx.in+{query}" data-name="OLX Autos / Cars & Bikes">
+      <div class="dealer-name">OLX Autos / Cars &amp; Bikes</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9734; 4.3</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Classified reach and direct owner listings
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.olx.in">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+
+    <div class="dealer-card" data-url="https://www.google.com/search?q=site:bigboytoyz.com+{query}" data-name="Big Boy Toyz">
+      <div class="dealer-name">Big Boy Toyz</div>
+      <div class="dealer-rating">&#9733;&#9733;&#9733;&#9733;&#9733; 4.8</div>
+      <div class="dealer-info">
+        <strong>Region:</strong> India<br>
+        <strong>Specialties:</strong> Premium and luxury pre-owned segment
+      </div>
+      <div class="dealer-actions">
+        <a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.bigboytoyz.com">Visit Dealer</a>
+        <a class="btn btn-secondary search-btn" target="_blank" rel="noopener noreferrer" href="#">Search This Car</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="muted-note">
+    Note: dealer search URL formats can change over time. If a search link opens a home page, use the same query in that dealer's website search box.
+  </p>
+</div>
+
+<footer>
+  &copy; 2026 AutoValue - Dealer discovery support.
+</footer>
+
+<script>
+  (function () {
+    const storageKey = "autovalue-theme";
+    const toggle = document.querySelector("[data-theme-toggle]");
+
+    function getPreferredTheme() {
+      const saved = localStorage.getItem(storageKey);
+      if (saved === "dark" || saved === "light") {
+        return saved;
+      }
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function applyTheme(theme) {
+      document.body.classList.toggle("theme-dark", theme === "dark");
+      if (!toggle) {
+        return;
+      }
+      toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      toggle.setAttribute("title", theme === "dark" ? "Light mode" : "Night mode");
+      const icon = toggle.querySelector("i");
+      if (icon) {
+        icon.className = theme === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      }
+    }
+
+    applyTheme(getPreferredTheme());
+
+    if (toggle) {
+      toggle.addEventListener("click", () => {
+        const nextTheme = document.body.classList.contains("theme-dark") ? "light" : "dark";
+        localStorage.setItem(storageKey, nextTheme);
+        applyTheme(nextTheme);
+      });
+    }
+  })();
+
+  const makeInput = document.getElementById('makeInput');
+  const modelInput = document.getElementById('modelInput');
+  const yearInput = document.getElementById('yearInput');
+  const cityInput = document.getElementById('cityInput');
+  const compareSummary = document.getElementById('compareSummary');
+  const compareAllBtn = document.getElementById('compareAllBtn');
+  const fillDemoBtn = document.getElementById('fillDemoBtn');
+
+  function buildQuery() {
+    const parts = [
+      makeInput.value.trim(),
+      modelInput.value.trim(),
+      yearInput.value.trim(),
+      cityInput.value.trim()
+    ].filter(Boolean);
+    return parts.join(' ');
+  }
+
+  function buildSearchUrl(template, query) {
+    return template.replace('{query}', encodeURIComponent(query));
+  }
+
+  function updateDealerSearchLinks() {
+    const query = buildQuery();
+    const cards = document.querySelectorAll('.dealer-card');
+
+    cards.forEach((card) => {
+      const searchBtn = card.querySelector('.search-btn');
+      const template = card.dataset.url;
+
+      if (!query) {
+        searchBtn.href = '#';
+        searchBtn.setAttribute('aria-disabled', 'true');
+        return;
+      }
+
+      searchBtn.href = buildSearchUrl(template, query);
+      searchBtn.removeAttribute('aria-disabled');
+    });
+
+    if (query) {
+      compareSummary.textContent = `Current compare query: "${query}". Use "Search This Car" on any dealer or open all dealers at once.`;
+    } else {
+      compareSummary.textContent = 'Tip: Add at least Make + Model for better results.';
+    }
+  }
+
+  compareAllBtn.addEventListener('click', () => {
+    const query = buildQuery();
+    if (!query) {
+      compareSummary.textContent = 'Please enter at least a Make or Model before comparing.';
+      return;
+    }
+
+    updateDealerSearchLinks();
+
+    const cards = [...document.querySelectorAll('.dealer-card')];
+    const firstSearchBtn = cards[0]?.querySelector('.search-btn');
+    if (firstSearchBtn && firstSearchBtn.href && firstSearchBtn.href !== '#') {
+      window.open(firstSearchBtn.href, '_blank', 'noopener,noreferrer');
+    }
+
+    compareSummary.textContent =
+      `Opened the first dealer search for "${query}". All dealer cards below are now updated with the same query, so you can open Spinny, CarDekho, CarWale and others one click at a time without popup blocking.`;
+
+    document.getElementById('dealerGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  fillDemoBtn.addEventListener('click', () => {
+    const hasAnyQueryInput = [makeInput, modelInput, yearInput, cityInput]
+      .some((el) => el.value.trim().length > 0);
+
+    if (!hasAnyQueryInput) {
+      makeInput.value = 'Toyota';
+      modelInput.value = 'Corolla';
+      yearInput.value = '2021';
+      cityInput.value = 'Bangalore';
+    }
+
+    updateDealerSearchLinks();
+  });
+
+  [makeInput, modelInput, yearInput, cityInput].forEach((el) => {
+    el.addEventListener('input', updateDealerSearchLinks);
+  });
+
+  updateDealerSearchLinks();
+</script>
+
+</body>
+</html>

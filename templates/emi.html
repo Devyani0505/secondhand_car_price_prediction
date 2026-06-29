@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoValue | EMI Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="topbar">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="brand">
+            <span class="brand-mark"><i class="fa-solid fa-car-side"></i></span>
+            <span class="brand-copy">
+              <span>AutoValue</span>
+              <small>Used Car Intelligence</small>
+            </span>
+          </a>
+          <div class="nav-actions">
+            <div class="nav-links">
+              <a href="/">Home</a>
+              <a href="/valuation">Valuation</a>
+              <a href="/emi" class="is-active">EMI</a>
+              <a href="/dealers">Dealers</a>
+            </div>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme" title="Night mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="page-hero-card">
+            <div>
+              <span class="eyebrow"><i class="fa-solid fa-calculator"></i> Financing planner</span>
+              <h1>Turn the valuation into a clearer monthly affordability view.</h1>
+              <p>
+                Use the estimated car value as your loan amount, adjust the rate and tenure, and review a cleaner EMI summary
+                with total interest and principal split.
+              </p>
+            </div>
+            <aside class="hero-side-card">
+              <strong>What you get</strong>
+              <ul>
+                <li><i class="fa-solid fa-circle-check"></i><span>Monthly EMI estimate</span></li>
+                <li><i class="fa-solid fa-circle-check"></i><span>Total interest visibility</span></li>
+                <li><i class="fa-solid fa-circle-check"></i><span>Quick jump to dealer comparison</span></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container form-shell">
+          <article class="form-card">
+            <div class="form-card-head">
+              <div>
+                <h2 class="section-title">Loan Details</h2>
+                <p>Use the valuation output as a starting point, then tune the financing assumptions.</p>
+              </div>
+              <span class="badge"><i class="fa-solid fa-badge-percent"></i> Simple EMI view</span>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="amount">Loan Amount (Rs.)</label>
+                <input type="number" id="amount" placeholder="Auto-filled from valuation">
+              </div>
+              <div class="field">
+                <label for="rate">Interest Rate (% per annum)</label>
+                <input type="number" id="rate" value="9.25" step="0.1">
+              </div>
+              <div class="field">
+                <label for="years">Tenure (Years)</label>
+                <input type="number" id="years" value="5">
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <div class="hero-actions" style="margin-top: 0;">
+                <button class="button" onclick="calculateEMI()">
+                  <i class="fa-solid fa-calculator"></i>
+                  Calculate EMI
+                </button>
+                <a href="/dealers" class="button-secondary">
+                  <i class="fa-solid fa-store"></i>
+                  Compare dealers
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <section id="result" class="result-card" aria-live="polite">
+            <div class="result-grid">
+              <div>
+                <div class="result-kicker">EMI summary</div>
+                <div class="emi-display" id="emi">Rs. --</div>
+                <p class="result-note">
+                  Total Months: <strong id="months">--</strong><br>
+                  Total Interest: <strong id="interest">Rs. --</strong><br>
+                  Total Payable: <strong id="total">Rs. --</strong>
+                </p>
+                <div class="chip-row">
+                  <span class="chip"><i class="fa-solid fa-credit-card"></i> Monthly payment focus</span>
+                  <span class="chip"><i class="fa-solid fa-chart-pie"></i> Principal vs interest split</span>
+                </div>
+              </div>
+              <div class="chart-shell">
+                <canvas id="emiChart"></canvas>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      &copy; 2026 AutoValue. Financing and valuation in one experience.
+    </footer>
+  </div>
+
+  <script src="/static/theme.js"></script>
+  <script>
+    let chart = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const price = params.get("price");
+      if (price) {
+        document.getElementById("amount").value = price;
+      }
+    });
+
+    function calculateEMI() {
+      const P = parseFloat(document.getElementById("amount").value);
+      const r = parseFloat(document.getElementById("rate").value) / 100 / 12;
+      const n = parseInt(document.getElementById("years").value, 10) * 12;
+
+      if (!P || !r || !n) {
+        alert("Please enter valid loan details");
+        return;
+      }
+
+      const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      const total = emi * n;
+      const interest = total - P;
+
+      document.getElementById("emi").innerText =
+        "Rs. " + Math.round(emi).toLocaleString("en-IN");
+      document.getElementById("months").innerText = n.toLocaleString("en-IN") + " months";
+      document.getElementById("interest").innerText =
+        "Rs. " + Math.round(interest).toLocaleString("en-IN");
+      document.getElementById("total").innerText =
+        "Rs. " + Math.round(total).toLocaleString("en-IN");
+
+      const resultCard = document.getElementById("result");
+      resultCard.classList.add("is-visible");
+
+      if (chart) {
+        chart.destroy();
+      }
+
+      chart = new Chart(document.getElementById("emiChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Principal", "Interest"],
+          datasets: [{
+            data: [P, interest],
+            backgroundColor: ["#2d6f6d", "#d89b72"],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              position: "bottom"
+            }
+          },
+          cutout: "64%"
+        }
+      });
+
+      resultCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  </script>
+</body>
+</html>

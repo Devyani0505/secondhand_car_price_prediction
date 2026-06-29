@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoValue | Car Valuation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="topbar">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="brand">
+            <span class="brand-mark"><i class="fa-solid fa-car-side"></i></span>
+            <span class="brand-copy">
+              <span>AutoValue</span>
+              <small>Used Car Intelligence</small>
+            </span>
+          </a>
+          <div class="nav-actions">
+            <div class="nav-links">
+              <a href="/">Home</a>
+              <a href="/valuation" class="is-active">Valuation</a>
+              <a href="/emi">EMI</a>
+              <a href="/dealers">Dealers</a>
+            </div>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme" title="Night mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="page-hero-card">
+            <div>
+              <span class="eyebrow"><i class="fa-solid fa-chart-line"></i> Guided vehicle appraisal</span>
+              <h1>Build a cleaner, more professional valuation in one pass.</h1>
+              <p>
+                Fill in the vehicle profile, ownership and condition details, then generate a calmer report-style estimate
+                with price range and trend context.
+              </p>
+            </div>
+            <aside class="hero-side-card">
+              <strong>Before you start</strong>
+              <ul>
+                <li><i class="fa-solid fa-circle-check"></i><span>Keep make, model, variant, city and mileage ready</span></li>
+                <li><i class="fa-solid fa-circle-check"></i><span>Use realistic condition values for a more believable estimate</span></li>
+                <li><i class="fa-solid fa-circle-check"></i><span>After pricing, jump straight into EMI planning</span></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container form-shell">
+          <article class="form-card">
+            <div class="form-card-head">
+              <div>
+                <h2 class="section-title">Basic Vehicle Details</h2>
+                <p>Core attributes that define the vehicle and local market context.</p>
+              </div>
+              <span class="badge"><i class="fa-solid fa-car"></i> Required first</span>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="make">Make</label>
+                <select id="make" onchange="loadModels()"></select>
+              </div>
+              <div class="field">
+                <label for="model">Model</label>
+                <select id="model" onchange="loadVariants()" disabled></select>
+              </div>
+              <div class="field">
+                <label for="variant">Variant</label>
+                <select id="variant" disabled></select>
+              </div>
+              <div class="field">
+                <label for="year">Manufacturing Year</label>
+                <input type="number" id="year" placeholder="2021">
+              </div>
+              <div class="field">
+                <label for="kms">Kilometers Driven</label>
+                <input type="number" id="kms" placeholder="35000">
+              </div>
+              <div class="field">
+                <label for="mileage">Mileage (kmpl/kWh)</label>
+                <input type="number" id="mileage" placeholder="18.5">
+              </div>
+              <div class="field">
+                <label for="owners">Owners</label>
+                <input type="number" id="owners" min="1" max="10" placeholder="1">
+              </div>
+              <div class="field">
+                <label for="fuel">Fuel</label>
+                <select id="fuel">
+                  <option value="CNG">CNG</option>
+                  <option value="Diesel">Diesel</option>
+                  <option value="Electric">Electric</option>
+                  <option value="LPG">LPG</option>
+                  <option value="Petrol">Petrol</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="transmission">Transmission Type</label>
+                <select id="transmission">
+                  <option value="Automatic">Automatic</option>
+                  <option value="Manual">Manual</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="color">Color</label>
+                <select id="color"></select>
+              </div>
+              <div class="field">
+                <label for="city">City</label>
+                <select id="city"></select>
+              </div>
+            </div>
+          </article>
+
+          <article class="form-card">
+            <div class="form-card-head">
+              <div>
+                <h2 class="section-title">Condition & Legal</h2>
+                <p>Use these inputs to reflect ownership, compliance, and mechanical condition.</p>
+              </div>
+              <span class="badge"><i class="fa-solid fa-shield-heart"></i> Trust signals</span>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="rc_status">RC Status</label>
+                <select id="rc_status">
+                  <option value="Active">Active</option>
+                  <option value="Expired">Expired</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="loan_clearance">Loan Clearance</label>
+                <select id="loan_clearance">
+                  <option value="Cleared">Cleared</option>
+                  <option value="Ongoing">Ongoing</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="accident_history">Accident History</label>
+                <select id="accident_history">
+                  <option value="Not Reported">Not Reported</option>
+                  <option value="Reported">Reported</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="insurance_claims">Insurance Claims</label>
+                <select id="insurance_claims">
+                  <option value="Multiple">Multiple</option>
+                  <option value="Single">Single</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="service_records">Service Records</label>
+                <select id="service_records">
+                  <option value="Full">Full</option>
+                  <option value="Partial">Partial</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="body_panels">Body Panels</label>
+                <select id="body_panels"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="rust">Rust</label>
+                <select id="rust"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="glass_condition">Glass Condition</label>
+                <select id="glass_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="lights_condition">Lights Condition</label>
+                <select id="lights_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="tyres">Tyres</label>
+                <select id="tyres"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="seats_condition">Seats Condition</label>
+                <select id="seats_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="electronics_condition">Electronics Condition</label>
+                <select id="electronics_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="smell">Cabin Smell</label>
+                <select id="smell"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="engine_condition">Engine Condition</label>
+                <select id="engine_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="transmission_condition">Transmission Condition</label>
+                <select id="transmission_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="brakes_condition">Brakes Condition</label>
+                <select id="brakes_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="steering_condition">Steering Condition</label>
+                <select id="steering_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="airbags_present">Airbags Present</label>
+                <select id="airbags_present">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="airbags_count">Airbags Count</label>
+                <select id="airbags_count">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="safety_systems">Safety Systems</label>
+                <select id="safety_systems">
+                  <option value="Seat belts">Seat belts</option>
+                  <option value="Seat belts, ABS">Seat belts, ABS</option>
+                  <option value="Seat belts, ABS, EBD">Seat belts, ABS, EBD</option>
+                  <option value="Seat belts, ABS, EBD, ESP, Traction control">Seat belts, ABS, EBD, ESP, Traction control</option>
+                  <option value="Seat belts, ABS, Multiple airbags, Lane assist, Advanced stability control">Seat belts, ABS, Multiple airbags, Lane assist, Advanced stability control</option>
+                  <option value="Seat belts, ABS, EBD, Multiple airbags, Lane assist, Advanced stability control">Seat belts, ABS, EBD, Multiple airbags, Lane assist, Advanced stability control</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="suspension_condition">Suspension Condition</label>
+                <select id="suspension_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="battery_condition">Battery Condition</label>
+                <select id="battery_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="ac_cooling">AC Cooling</label>
+                <select id="ac_cooling"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="rattling_noises">Rattling Noises</label>
+                <select id="rattling_noises">
+                  <option value="Occasional">Occasional</option>
+                  <option value="Present">Present</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="idle_vibration">Idle Vibration</label>
+                <select id="idle_vibration"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="engine_start">Engine Start</label>
+                <select id="engine_start">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="acceleration_condition">Acceleration Condition</label>
+                <select id="acceleration_condition"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+              <div class="field">
+                <label for="brakes_drive">Brakes Drive</label>
+                <select id="brakes_drive"><option value="Good">Good</option><option value="Average">Average</option><option value="Poor">Poor</option></select>
+              </div>
+            </div>
+          </article>
+
+          <article class="form-card">
+            <div class="form-card-head">
+              <div>
+                <h2 class="section-title">Market Trend</h2>
+                <p>Optional override if you want to nudge the estimate for a hotter or softer local market.</p>
+              </div>
+              <span class="badge"><i class="fa-solid fa-wave-square"></i> Optional</span>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="market_trend_index">Market Trend Index</label>
+                <input type="number" id="market_trend_index" step="0.01" min="0.70" max="1.35" placeholder="1.00 = neutral market">
+                <div class="field-hint">Use values near 1.00 for normal conditions. Higher means stronger demand.</div>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <p class="muted-copy">When you submit, the result card below updates with estimated price and range.</p>
+              <button class="button" onclick="calculate()">
+                <i class="fa-solid fa-sparkles"></i>
+                Get estimated value
+              </button>
+            </div>
+          </article>
+
+          <section id="result" class="result-card" aria-live="polite">
+            <div class="result-grid">
+              <div>
+                <div class="result-kicker">Estimated valuation</div>
+                <div class="price-display" id="price">Rs. --</div>
+                <p class="trend-note" id="trend-note"></p>
+                <div class="chip-row">
+                  <span class="chip"><i class="fa-solid fa-shield-check"></i> Market adjusted</span>
+                  <span class="chip"><i class="fa-solid fa-file-waveform"></i> Ready for financing view</span>
+                </div>
+              </div>
+              <aside class="result-side">
+                <strong>Next step</strong>
+                <p class="detail-note">Use this valuation as the starting point for loan planning and affordability checks.</p>
+                <div style="margin-top: 1rem;">
+                  <button class="button-secondary" onclick="goToEMI()">
+                    <i class="fa-solid fa-calculator"></i>
+                    Check EMI options
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <article class="form-card">
+            <div class="form-card-head">
+              <div>
+                <h2 class="section-title">Recent Valuation History</h2>
+                <p>Saved in this browser for 5 minutes so you can revisit or reuse recent checks.</p>
+              </div>
+              <span class="badge"><i class="fa-solid fa-clock-rotate-left"></i> 5 minute window</span>
+            </div>
+            <div id="valuationHistory" class="history-list">
+              <div class="history-empty">No recent valuation history yet.</div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      &copy; 2026 AutoValue. Professional used car valuation experience.
+    </footer>
+  </div>
+
+  <script src="/static/theme.js"></script>
+  <script>
+    let csvData = [];
+    let predictedPrice = 0;
+    const valuationHistoryKey = "autovalue-valuation-history";
+    const valuationHistoryTtlMs = 5 * 60 * 1000;
+
+    fetch("/static/data2.csv")
+      .then(res => res.text())
+      .then(text => {
+        const rows = text.trim().split("\n").slice(1);
+        csvData = rows.map(r => {
+          const c = r.split(",");
+          return {
+            Make: c[0],
+            Model: c[1],
+            City: c[c.length - 3],
+            Color: c[c.length - 2],
+            Variant: c[c.length - 1]
+          };
+        });
+        fillMakes();
+        fillColors();
+        fillCities();
+      });
+
+    function fillMakes() {
+      make.innerHTML = `<option value="">Select Make</option>`;
+      [...new Set(csvData.map(d => d.Make))].forEach(m => make.innerHTML += `<option>${m}</option>`);
+    }
+
+    function loadModels() {
+      model.disabled = false;
+      model.innerHTML = `<option value="">Select Model</option>`;
+      [...new Set(csvData.filter(d => d.Make === make.value).map(d => d.Model))]
+        .forEach(m => model.innerHTML += `<option>${m}</option>`);
+    }
+
+    function loadVariants() {
+      variant.disabled = false;
+      variant.innerHTML = `<option value="">Select Variant</option>`;
+      [...new Set(csvData.filter(d => d.Make === make.value && d.Model === model.value).map(d => d.Variant))]
+        .forEach(v => variant.innerHTML += `<option>${v}</option>`);
+    }
+
+    function fillColors() {
+      color.innerHTML = `<option value="">Select Color</option>`;
+      [...new Set(csvData.map(d => d.Color))].forEach(c => color.innerHTML += `<option>${c}</option>`);
+    }
+
+    function fillCities() {
+      city.innerHTML = `<option value="">Select City</option>`;
+      [...new Set(csvData.map(d => d.City))].forEach(c => city.innerHTML += `<option>${c}</option>`);
+    }
+
+    function goToEMI() {
+      window.location.href = `/emi?price=${predictedPrice}`;
+    }
+
+    function getFreshValuationHistory() {
+      const now = Date.now();
+      let saved = [];
+      try {
+        saved = JSON.parse(localStorage.getItem(valuationHistoryKey) || "[]");
+      } catch (err) {
+        saved = [];
+      }
+
+      const fresh = saved.filter(item => item && item.savedAt && (now - item.savedAt) <= valuationHistoryTtlMs);
+      localStorage.setItem(valuationHistoryKey, JSON.stringify(fresh));
+      return fresh;
+    }
+
+    function saveValuationHistoryEntry(payload, result) {
+      const history = getFreshValuationHistory();
+      history.unshift({
+        id: Date.now(),
+        savedAt: Date.now(),
+        payload,
+        result
+      });
+      localStorage.setItem(valuationHistoryKey, JSON.stringify(history.slice(0, 6)));
+    }
+
+    function timeAgoLabel(savedAt) {
+      const diffSeconds = Math.max(0, Math.floor((Date.now() - savedAt) / 1000));
+      if (diffSeconds < 60) {
+        return `${diffSeconds}s ago`;
+      }
+      const diffMinutes = Math.floor(diffSeconds / 60);
+      return `${diffMinutes}m ago`;
+    }
+
+    function fillFormFromPayload(payload) {
+      document.getElementById("make").value = payload.make || "";
+      loadModels();
+      document.getElementById("model").value = payload.model || "";
+      loadVariants();
+      document.getElementById("variant").value = payload.variant || "";
+
+      const simpleIds = [
+        "city", "year", "kms", "mileage", "owners", "fuel", "transmission", "color",
+        "rc_status", "loan_clearance", "accident_history", "insurance_claims", "service_records",
+        "body_panels", "rust", "glass_condition", "lights_condition", "tyres", "seats_condition",
+        "electronics_condition", "smell", "engine_condition", "transmission_condition",
+        "brakes_condition", "steering_condition", "airbags_present", "airbags_count",
+        "safety_systems", "suspension_condition", "battery_condition", "ac_cooling",
+        "rattling_noises", "idle_vibration", "engine_start", "acceleration_condition",
+        "brakes_drive", "market_trend_index"
+      ];
+
+      simpleIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.value = payload[id] ?? "";
+        }
+      });
+    }
+
+    function renderValuationHistory() {
+      const container = document.getElementById("valuationHistory");
+      const history = getFreshValuationHistory();
+
+      if (!history.length) {
+        container.innerHTML = `<div class="history-empty">No recent valuation history yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = history.map(item => {
+        const make = item.payload.make || "Unknown make";
+        const model = item.payload.model || "Unknown model";
+        const year = item.payload.year || "--";
+        const city = item.payload.city || "Unknown city";
+        const price = Number(item.result.predicted_price || 0).toLocaleString("en-IN");
+        const low = Number(item.result.price_low || 0).toLocaleString("en-IN");
+        const high = Number(item.result.price_high || 0).toLocaleString("en-IN");
+        return `
+          <div class="history-item">
+            <div class="history-meta">
+              <div class="history-title">${make} ${model} (${year})</div>
+              <div class="history-subtitle">
+                Rs. ${price} &middot; Range Rs. ${low} - Rs. ${high} &middot; ${city} &middot; ${timeAgoLabel(item.savedAt)}
+              </div>
+            </div>
+            <div class="history-actions">
+              <button class="history-link-btn" type="button" data-history-id="${item.id}">Use again</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      container.querySelectorAll("[data-history-id]").forEach(button => {
+        button.addEventListener("click", () => {
+          const targetId = Number(button.getAttribute("data-history-id"));
+          const selected = getFreshValuationHistory().find(item => item.id === targetId);
+          if (!selected) {
+            renderValuationHistory();
+            return;
+          }
+          fillFormFromPayload(selected.payload);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    }
+
+    function buildPayload() {
+      return {
+        make: document.getElementById("make").value,
+        model: document.getElementById("model").value,
+        variant: document.getElementById("variant").value,
+        city: document.getElementById("city").value,
+        year: document.getElementById("year").value,
+        kms: document.getElementById("kms").value,
+        mileage: document.getElementById("mileage").value,
+        owners: document.getElementById("owners").value,
+        fuel: document.getElementById("fuel").value,
+        transmission: document.getElementById("transmission").value,
+        color: document.getElementById("color").value,
+        rc_status: document.getElementById("rc_status").value,
+        loan_clearance: document.getElementById("loan_clearance").value,
+        accident_history: document.getElementById("accident_history").value,
+        insurance_claims: document.getElementById("insurance_claims").value,
+        service_records: document.getElementById("service_records").value,
+        body_panels: document.getElementById("body_panels").value,
+        rust: document.getElementById("rust").value,
+        glass_condition: document.getElementById("glass_condition").value,
+        lights_condition: document.getElementById("lights_condition").value,
+        tyres: document.getElementById("tyres").value,
+        seats_condition: document.getElementById("seats_condition").value,
+        electronics_condition: document.getElementById("electronics_condition").value,
+        smell: document.getElementById("smell").value,
+        engine_condition: document.getElementById("engine_condition").value,
+        transmission_condition: document.getElementById("transmission_condition").value,
+        brakes_condition: document.getElementById("brakes_condition").value,
+        steering_condition: document.getElementById("steering_condition").value,
+        airbags_present: document.getElementById("airbags_present").value,
+        airbags_count: document.getElementById("airbags_count").value,
+        safety_systems: document.getElementById("safety_systems").value,
+        suspension_condition: document.getElementById("suspension_condition").value,
+        battery_condition: document.getElementById("battery_condition").value,
+        ac_cooling: document.getElementById("ac_cooling").value,
+        rattling_noises: document.getElementById("rattling_noises").value,
+        idle_vibration: document.getElementById("idle_vibration").value,
+        engine_start: document.getElementById("engine_start").value,
+        acceleration_condition: document.getElementById("acceleration_condition").value,
+        brakes_drive: document.getElementById("brakes_drive").value,
+        market_trend_index: document.getElementById("market_trend_index").value
+      };
+    }
+
+    function validateRequiredInputs(payload) {
+      const required = [
+        "make", "model", "variant", "city", "year", "kms", "mileage",
+        "owners", "fuel", "transmission", "color"
+      ];
+      const missing = required.filter(k => payload[k] === "" || payload[k] == null);
+      if (missing.length) {
+        alert("Please fill required fields: " + missing.join(", "));
+        return false;
+      }
+
+      const year = Number(payload.year);
+      const kms = Number(payload.kms);
+      const mileage = Number(payload.mileage);
+      const owners = Number(payload.owners);
+
+      if (year < 1990 || year > 2026) {
+        alert("Please enter a valid manufacturing year (1990-2026).");
+        return false;
+      }
+      if (kms <= 0) {
+        alert("Kilometers driven must be greater than 0.");
+        return false;
+      }
+      if (mileage <= 0) {
+        alert("Mileage must be greater than 0.");
+        return false;
+      }
+      if (owners <= 0) {
+        alert("Owners must be at least 1.");
+        return false;
+      }
+      return true;
+    }
+
+    function calculate() {
+      const payload = buildPayload();
+      const resultCard = document.getElementById("result");
+
+      if (!validateRequiredInputs(payload)) {
+        resultCard.classList.remove("is-visible");
+        return;
+      }
+
+      fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          throw new Error("Prediction failed: " + data.error);
+        }
+
+        predictedPrice = data.predicted_price;
+        document.getElementById("price").innerText =
+          "Rs. " + predictedPrice.toLocaleString("en-IN") +
+          " (Range: Rs. " + data.price_low.toLocaleString("en-IN") +
+          " - Rs. " + data.price_high.toLocaleString("en-IN") + ")";
+        document.getElementById("trend-note").innerText =
+          "Trend multiplier applied: x" + Number(data.market_trend_multiplier || 1).toFixed(2) +
+          " (" + (data.market_trend_source || "auto") + ")";
+        saveValuationHistoryEntry(payload, data);
+        renderValuationHistory();
+        resultCard.classList.add("is-visible");
+        resultCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      })
+      .catch(err => {
+        alert(err.message || "Server error. Check Flask is running.");
+        console.error(err);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderValuationHistory();
+    });
+  </script>
+</body>
+</html>

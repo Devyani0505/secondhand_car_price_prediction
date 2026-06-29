@@ -1,0 +1,35 @@
+{
+  "rows": 18134,
+  "trained_at_utc": "2026-03-28T03:21:17+00:00",
+  "xgboost_available": true,
+  "results_holdout": [
+    {
+      "model": "random_forest",
+      "mae_holdout": 194136.68,
+      "rmse_holdout": 565686.37,
+      "r2_holdout": 0.9687
+    },
+    {
+      "model": "xgboost",
+      "mae_holdout": 219569.08,
+      "rmse_holdout": 580686.51,
+      "r2_holdout": 0.967
+    },
+    {
+      "model": "lightgbm",
+      "mae_holdout": 232292.85,
+      "rmse_holdout": 606451.82,
+      "r2_holdout": 0.964
+    },
+    {
+      "model": "linear",
+      "mae_holdout": 635647.56,
+      "rmse_holdout": 1657139.05,
+      "r2_holdout": 0.7312
+    }
+  ],
+  "best_overall_model": "random_forest",
+  "deployed_model": "xgboost",
+  "deployment_rule": "best model among {'lightgbm','xgboost'} by holdout MAE",
+  "saved_model_path": "c:\\Users\\Lenovo\\Desktop\\Final\\car_price_prediction\\models\\car_price_pipeline.pkl"
+}
